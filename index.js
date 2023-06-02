@@ -30,10 +30,10 @@ server.use(express.urlencoded({extended: true}));
 server.use('/users', userRoutes)
 server.use("/dates", datesRoutes)
 server.use("/products", productsRoutes)
-server.use("/", (req,res)=>{
-    res.send("funcionando");
-});
 
+server.use("*", (req, res, next)=>{
+    return res.status(404).json("Route not found");
+});
 
 
 
@@ -42,12 +42,12 @@ server.use("/", (req,res)=>{
 server.use((err, req, res, next) => {
     return res.status(err.status || 500).json(err.message || "Error inesperado");
 });
-server.use("*", (req, res, next)=>{
-    return res.status(404).json("Route not found");
+
+
+server.use("/", (req,res)=>{
+    res.send("It Works!");
 });
 
-
-
 server.listen(port,()=>{
-    console.log(`El servidor está disponible en http://localhost:${port}`);
+    console.log(`Server running`);
 });
