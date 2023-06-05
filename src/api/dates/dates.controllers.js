@@ -1,6 +1,7 @@
 const  Date  =require("./dates.model")
 
 const createDate = async (req, res, next) => { 
+
     try {
         const newDate = await new Date(req.body);
         await newDate.save();
