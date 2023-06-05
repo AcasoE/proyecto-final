@@ -47,7 +47,7 @@ const getDateById = async (req, res, next)=>{
 };
 const getDates = async (req, res, next) => {
     try {
-      const date = await Date.find().populate("customer product");
+      const date = await Date.find().populate([{path: 'customer', select: 'name surname'}, {path: 'product', select: 'name price'}]);;
       return res.json(date);
     } catch (error) {
       return res.json(`No hemos podido acceder a los Productos ${error}`);

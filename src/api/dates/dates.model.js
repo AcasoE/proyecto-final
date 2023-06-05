@@ -3,6 +3,7 @@ const DateSchema = new mongoose.Schema(
     {
         customer: {type: mongoose.Types.ObjectId, ref: "users" },
         product: {type: mongoose.Types.ObjectId, ref: "products" },
+        fecha:{type: Date, required: true},
         time: {type: String, required: true}
     },
     {
