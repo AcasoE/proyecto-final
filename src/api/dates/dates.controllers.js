@@ -47,11 +47,12 @@ const getDateById = async (req, res, next)=>{
 };
 const getDates = async (req, res, next) => {
     try {
-      const date = await Date.find();
+      const date = await Date.find().populate("customer product");
       return res.json(date);
     } catch (error) {
       return res.json(`No hemos podido acceder a los Productos ${error}`);
     }
   };
+
 
 module.exports ={createDate, updateDateById, deleteDateById, getDateById, getDates}
