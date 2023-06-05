@@ -33,7 +33,7 @@ const registerUser  = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
 
     try {
-        const userToLog = await User.findOne({mail: req.body.mail})
+        const userToLog = await User.findOne({email: req.body.email})
     if (!userToLog) {
         res.status(500).json("Credenciales no válidas")
         
