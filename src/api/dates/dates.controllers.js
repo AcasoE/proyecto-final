@@ -1,4 +1,4 @@
-const { Date }  =require("./dates.model")
+const  Date  =require("./dates.model")
 
 const createDate = async (req, res, next) => { 
     try {
