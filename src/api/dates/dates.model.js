@@ -7,7 +7,7 @@ const DateSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        collection: "posts",
+        collection: "dates",
       }
 )
 
