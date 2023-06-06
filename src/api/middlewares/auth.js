@@ -11,7 +11,7 @@ const isAuth = async (req, res,next) => {
         }
         const validToken = verifyToken(token)
         if(validToken){
-            const userloged = await User.findById(validToken.id)
+            const userloged = await User.findById(validToken._id)
             userloged.password = null
             req.user = userloged
             next()

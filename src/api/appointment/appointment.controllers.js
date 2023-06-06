@@ -1,3 +1,4 @@
+const { verifyToken } = require("../../utils/jsonwebtoken");
 const Appointment = require("./appointment.model");
 
 const createDate = async (req, res, next) => {
@@ -47,17 +48,26 @@ const getDateById = async (req, res, next) => {
   }
 };
 const getDates = async (req, res, next) => {
+  const token = req.heders.authorization.token
+  const user = verifyToken(token)
   try {
-    const appointment = await Appointment.find().populate([
-      { path: "customer", select: "name surname" },
+    const appointments = await Appointment.find().populate([
+      { path: "customer", select: "name surname _id" },
       { path: "product", select: "name price" },
+      
     ]);
-    return res.json(appointment);
+    if(user.rol === "admin"){
+      return res.json(appointments)
+    } else {
+      const userAppointments = Allappointments.filter(x=> x.customer._id === user._id)
+      return res.json(userAppointments);
+    }
   } catch (error) {
     return res.json(`No hemos podido acceder a los Productos ${error}`);
+    
   }
-};
 
+  };
 module.exports = {
   createDate,
   updateDateById,
