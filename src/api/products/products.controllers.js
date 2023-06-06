@@ -4,9 +4,9 @@ const Product = require("./products.model")
 
 const createProduct = async (req, res, next) => {
     try {
-      const newPost = await new Product(req.body);
-      await newPost.save();
-      return res.json(newPost);
+      const newProduct = await new Product(req.body);
+      await newProduct.save();
+      return res.json(newProduct);
     } catch (error) {
       return next(error);
     }
@@ -39,7 +39,7 @@ const createProduct = async (req, res, next) => {
           if (!product) {
               return res.json("no hemos podido encontrar ese coche con ese id")
           }
-          return res.status(200).json(post)
+          return res.status(200).json(product)
       } catch (error) {
           return next(error)
       }
