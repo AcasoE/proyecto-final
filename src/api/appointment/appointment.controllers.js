@@ -48,7 +48,7 @@ const getDateById = async (req, res, next) => {
   }
 };
 const getDates = async (req, res, next) => {
-  const token = req.heders.authorization.token
+  const token = req.headers.authorization.token
   const user = verifyToken(token)
   try {
     const appointments = await Appointment.find().populate([
