@@ -59,7 +59,7 @@ const getDates = async (req, res, next) => {
     if(user.rol === "admin"){
       return res.json(appointments)
     } else {
-      const userAppointments = Allappointments.filter(x=> x.customer._id === user._id)
+      const userAppointments = appointments.filter(x=> x.customer._id === user._id)
       return res.json(userAppointments);
     }
   } catch (error) {
