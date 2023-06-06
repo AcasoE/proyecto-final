@@ -1,4 +1,4 @@
-const {createDate, updateDateById, deleteDateById, getDateById, getDates} = require("./dates.controllers");
+const {createDate, updateDateById, deleteDateById, getDateById, getDates} = require("./appointment.controllers");
 const { isAuth, isAdmin } = require("../middlewares/auth");
 const datesRoutes = require('express').Router();
 

@@ -1,5 +1,5 @@
 const { userRoutes }= require("./src/api/users/users.routes")
-const { datesRoutes } = require("./src/api/dates/dates.routes")
+const { datesRoutes } = require("./src/api/appointment/appointment.routes")
 const { productsRoutes } = require("./src/api/products/products.routes")
 
 
@@ -28,7 +28,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
 server.use('/users', userRoutes)
-server.use("/dates", datesRoutes)
+server.use("/appointments", datesRoutes)
 server.use("/products", productsRoutes)
 
 server.use("*", (req, res, next)=>{
