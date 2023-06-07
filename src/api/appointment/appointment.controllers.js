@@ -1,4 +1,5 @@
 const { verifyToken } = require("../../utils/jsonwebtoken");
+const User = require("../users/users.model");
 const Appointment = require("./appointment.model");
 
 const createDate = async (req, res, next) => {
@@ -48,20 +49,25 @@ const getDateById = async (req, res, next) => {
   }
 };
 const getDates = async (req, res, next) => {
-  const token = req.headers.Authorization
+/*   const token = req.headers.authorization
+  console.log(token); 
   const user = verifyToken(token)
+  if(user){
+    const userloged = await User.findById(user.id)
+  } */
   try {
     const appointments = await Appointment.find().populate([
       { path: "customer", select: "name surname _id" },
       { path: "product", select: "name price" },
-      
+
     ]);
-    if(user.rol === "admin"){
+    return res.json(appointments)
+/*     if(user.rol === "admin"){
       return res.json(appointments)
     } else {
       const userAppointments = appointments.filter(x=> x.customer._id === user._id)
       return res.json(userAppointments);
-    }
+    } */
   } catch (error) {
     return res.json(`No hemos podido acceder a los Productos ${error}`);
     
