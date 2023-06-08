@@ -72,7 +72,7 @@ const getDates = async (req, res, next) => {
     } else {
       const userAppointments = appointments.filter(x=> x.customer._id.toString() === idUser)
       console.log(userAppointments);
-      return userAppointments
+      return res.json(userAppointments)
     }
   }
   } catch (error) {
