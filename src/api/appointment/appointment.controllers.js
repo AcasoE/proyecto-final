@@ -67,9 +67,11 @@ const getDates = async (req, res, next) => {
       const idUser = userloged._id.toString()
 
     if (userloged.rol === "admin") {
+      console.log(appointments);
     return res.json(appointments)
     } else {
       const userAppointments = appointments.filter(x=> x.customer._id.toString() === idUser)
+      console.log(userAppointments);
       return userAppointments
     }
   }
