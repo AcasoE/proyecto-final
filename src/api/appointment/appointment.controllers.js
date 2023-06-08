@@ -49,25 +49,30 @@ const getDateById = async (req, res, next) => {
   }
 };
 const getDates = async (req, res, next) => {
-/*   const token = req.headers.authorization
-  console.log(token); 
-  const user = verifyToken(token)
-  if(user){
-    const userloged = await User.findById(user.id)
-  } */
+
   try {
     const appointments = await Appointment.find().populate([
       { path: "customer", select: "name surname _id" },
       { path: "product", select: "name price" },
 
     ]);
+
+    const token = req.headers.authorization
+
+    const user = verifyToken(token)
+
+    if(user){
+
+      const userloged = await User.findById(user.id)
+      const idUser = userloged._id.toString()
+
+    if (userloged.rol === "admin") {
     return res.json(appointments)
-/*     if(user.rol === "admin"){
-      return res.json(appointments)
     } else {
-      const userAppointments = appointments.filter(x=> x.customer._id === user._id)
-      return res.json(userAppointments);
-    } */
+      const userAppointments = appointments.filter(x=> x.customer._id.toString() === idUser)
+      return userAppointments
+    }
+  }
   } catch (error) {
     return res.json(`No hemos podido acceder a los Productos ${error}`);
     
