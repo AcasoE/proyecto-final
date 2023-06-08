@@ -39,6 +39,7 @@ const createProduct = async (req, res, next) => {
           if (!product) {
               return res.json("no hemos podido encontrar ese coche con ese id")
           }
+          await Appointment.deleteMany({ product: id });
           return res.status(200).json(product)
       } catch (error) {
           return next(error)

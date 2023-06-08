@@ -56,7 +56,7 @@ const getDates = async (req, res, next) => {
       { path: "product", select: "name price" },
 
     ]);
-
+console.log(appointments);
     const token = req.headers.authorization
 
     const user = verifyToken(token)
