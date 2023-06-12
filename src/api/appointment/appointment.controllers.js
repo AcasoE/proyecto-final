@@ -6,7 +6,7 @@ const createDate = async (req, res, next) => {
   try {
     const newAppointment = await new Appointment(req.body);
     await newAppointment.save();
-    const appointmentPopulado = await Appointment.find({_id: newAppointment._id}).populate({path: "customer", select: "name surname _id"},{path: "product", select: "name price"})
+    const appointmentPopulado = await Appointment.find({_id: newAppointment._id}).populate([{path: "customer", select: "name surname _id"},{path: "product", select: "name price"}])
     return res.status(200).json(appointmentPopulado )
   } catch (error) {
     return next(error);
@@ -19,7 +19,7 @@ const updateDateById = async (req, res, next) => {
     const appointmentUpdated = await Appointment.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    const appointmentActualizadoYPopulado = await Appointment.find({_id: appointmentUpdated._id}).populate({path: "customer", select: "name surname _id"},{path: "product", select: "name price"})
+    const appointmentActualizadoYPopulado = await Appointment.find({_id: appointmentUpdated._id}).populate([{path: "customer", select: "name surname _id"},{path: "product", select: "name price"}])
     return res.status(200).json(appointmentActualizadoYPopulado )
   } catch (error) {
     return next(error);
