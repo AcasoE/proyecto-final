@@ -1,6 +1,5 @@
 const Product = require("./products.model")
-
-
+const Appointment = require("../appointment/appointment.model")
 
 const createProduct = async (req, res, next) => {
     try {
