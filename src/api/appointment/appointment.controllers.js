@@ -6,7 +6,8 @@ const createDate = async (req, res, next) => {
   try {
     const newAppointment = await new Appointment(req.body);
     await newAppointment.save();
-    return res.json(newAppointment);
+    const appointmentPopulado = await Appointment.find({_id: newAppointment._id}).populate({path: "customer", select: "name surname _id"},{path: "product", select: "name price"})
+    return res.status(200).json(appointmentPopulado )
   } catch (error) {
     return next(error);
   }
@@ -18,7 +19,8 @@ const updateDateById = async (req, res, next) => {
     const appointmentUpdated = await Appointment.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    return res.status(200).json(appointmentUpdated);
+    const appointmentActualizadoYPopulado = await Appointment.find({_id: appointmentUpdated._id}).populate({path: "customer", select: "name surname _id"},{path: "product", select: "name price"})
+    return res.status(200).json(appointmentActualizadoYPopulado )
   } catch (error) {
     return next(error);
   }
@@ -49,29 +51,25 @@ const getDateById = async (req, res, next) => {
   }
 };
 const getDates = async (req, res, next) => {
-
   try {
     const appointments = await Appointment.find().populate([
       { path: "customer", select: "name surname _id" },
       { path: "product", select: "name price" },
 
     ]);
-console.log(appointments);
     const token = req.headers.authorization
 
     const user = verifyToken(token)
-
     if(user){
 
       const userloged = await User.findById(user.id)
+      console.log(userloged);
       const idUser = userloged._id.toString()
 
     if (userloged.rol === "admin") {
-      console.log(appointments);
     return res.json(appointments)
     } else {
       const userAppointments = appointments.filter(x=> x.customer._id.toString() === idUser)
-      console.log(userAppointments);
       return res.json(userAppointments)
     }
   }
