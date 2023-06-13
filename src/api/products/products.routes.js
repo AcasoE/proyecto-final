@@ -6,6 +6,6 @@ productsRoutes.post("/create" , [isAdmin], createProduct )
 productsRoutes.put("/update/:id",[isAdmin],updateProductById)
 productsRoutes.delete("/delete/:id",[isAdmin], deleteProductById)
 productsRoutes.get("/:id",[isAuth],getProductById)
-productsRoutes.get("/",[isAuth],getProducts )
+productsRoutes.get("/",getProducts )
 
 module.exports = { productsRoutes }
