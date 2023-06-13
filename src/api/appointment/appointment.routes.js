@@ -2,11 +2,11 @@ const {createDate, updateDateById, deleteDateById, getDateById, getDates} = requ
 const { isAuth, isAdmin } = require("../middlewares/auth");
 const datesRoutes = require('express').Router();
 
-datesRoutes.post("/create"  ,createDate )
-datesRoutes.put("/update/:id" ,updateDateById)
-datesRoutes.delete("/delete/:id" , deleteDateById)
-datesRoutes.get("/:id" ,getDateById)
-datesRoutes.get("/",getDates)
+datesRoutes.post("/create" , [isAuth], createDate )
+datesRoutes.put("/update/:id" , [isAuth],updateDateById)
+datesRoutes.delete("/delete/:id" , [isAuth], deleteDateById)
+datesRoutes.get("/:id" , [isAuth],getDateById)
+datesRoutes.get("/", [isAuth], getDates)
 
 
 module.exports = { datesRoutes }
